@@ -5,7 +5,7 @@ import sqlite3
 
 load_dotenv()
 
-app = Flask(_-name__)
+app = Flask(__name__)
 
 # Conectar com o banco de dados
 DB_PATH = 'mensagens.db'
@@ -36,5 +36,5 @@ def webhook():
 
     return resposta, 200
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True) 
