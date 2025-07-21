@@ -5,7 +5,7 @@ import sqlite3
 
 load_dotenv()
 
-app = Flask(_name_)
+app = Flask(_-name__)
 
 # Conectar com o banco de dados
 DB_PATH = 'mensagens.db'
