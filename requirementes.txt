@@ -1,2 +1,4 @@
-Flask
+flask
+twilio
+sqlite3
 python-dotenv
