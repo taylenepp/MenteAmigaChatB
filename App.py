@@ -1,40 +1,29 @@
-from flask import Flask, request
-import os
-from dotenv import load_dotenv
-import sqlite3
+from flask import Flask, request import os from dotenv import load_dotenv import sqlite3 
 
-load_dotenv()
+load_dotenv() 
 
-app = Flask(__name__)
+app = Flask(name) 
 
-# Conectar com o banco de dados
-DB_PATH = 'mensagens.db'
+Conectar com o banco de dados 
 
-def obter_resposta(tipo):
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("SELECT conteudo FROM mensagens WHERE tipo = ? ORDER BY RANDOM() LIMIT 1", (tipo,))
-    resultado = cursor.fetchone()
-    conn.close()
-    return resultado[0] if resultado else "Tudo bem! Estou aqui com você."
+DB_PATH = 'mensagens.db' 
 
-@app.route("/webhook", methods=["POST"])
-def whatsapp_webhook():
-    data = request.form
-    msg = data.get('Body', '').lower()
+def obter_resposta(tipo): conn = sqlite3.connect(DB_PATH) cursor = conn.cursor() cursor.execute("SELECT conteudo FROM mensagens WHERE tipo = ? ORDER BY RANDOM() LIMIT 1", (tipo,)) resultado = cursor.fetchone() conn.close() return resultado[0] if resultado else "Tudo bem! Estou aqui com você." 
 
-    if 'triste' in msg or 'mal' in msg:
-        resposta = obter_resposta('apoio')
-    elif 'respirar' in msg:
-        resposta = obter_resposta('respiracao')
-    elif 'humor' in msg:
-        resposta = obter_resposta('humor')
-    elif 'ajuda' in msg or 'socorro' in msg:
-        resposta = obter_resposta('emergencia')
-    else:
-        resposta = obter_resposta('abertura')
+@app.route("/webhook", methods=["POST"]) def whatsapp_webhook(): data = request.form msg = data.get('Body', '').lower() 
 
-    return resposta, 200
+if 'triste' in msg or 'mal' in msg: 
+    resposta = obter_resposta('apoio') 
+elif 'respirar' in msg: 
+    resposta = obter_resposta('respiracao') 
+elif 'humor' in msg: 
+    resposta = obter_resposta('humor') 
+elif 'ajuda' in msg or 'socorro' in msg: 
+    resposta = obter_resposta('emergencia') 
+else: 
+    resposta = obter_resposta('abertura') 
+ 
+return resposta, 200 
+  
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000) 
+if name == "main": app.run(host="0.0.0.0", port=5000) 
