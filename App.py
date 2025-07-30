@@ -18,8 +18,8 @@ def obter_resposta(tipo):
     conn.close()
     return resultado[0] if resultado else "Tudo bem! Estou aqui com você."
 
-@app.route('/webhook', methods=['POST'])
-def webhook():
+@app.route("/webhook", methods=["POST"])
+def whatsapp_webhook():
     data = request.form
     msg = data.get('Body', '').lower()
 
@@ -36,5 +36,5 @@ def webhook():
 
     return resposta, 200
 
-if __name__ == '__main__':
-    app.run(debug=True) 
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000) 
