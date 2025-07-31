@@ -8,7 +8,6 @@ load_dotenv()
 app = Flask(__name__) 
 
 # Conectar com o banco de dados 
-
 DB_PATH = 'mensagens.db' 
 
 def obter_resposta(tipo): 
@@ -24,19 +23,19 @@ def whatsapp_webhook():
     data = request.form 
     msg = data.get('Body', '').lower() 
 
-if 'triste' in msg or 'mal' in msg: 
-    resposta = obter_resposta('apoio') 
-elif 'respirar' in msg: 
-    resposta = obter_resposta('respiracao') 
-elif 'humor' in msg: 
-    resposta = obter_resposta('humor') 
-elif 'ajuda' in msg or 'socorro' in msg: 
-    resposta = obter_resposta('emergencia') 
-else: 
-    resposta = obter_resposta('abertura') 
- 
-return resposta, 200 
-  
+    if 'triste' in msg or 'mal' in msg: 
+        resposta = obter_resposta('apoio') 
+    elif 'respirar' in msg: 
+        resposta = obter_resposta('respiracao') 
+    elif 'humor' in msg: 
+        resposta = obter_resposta('humor') 
+    elif 'ajuda' in msg or 'socorro' in msg: 
+        resposta = obter_resposta('emergencia') 
+    else: 
+        resposta = obter_resposta('abertura') 
 
-if name == "main": 
-    app.run(host="0.0.0.0", port=5000) 
+    return resposta, 200 
+
+if __name__ == "__main__": 
+    app.run(host="0.0.0.0", port=5000)
+
