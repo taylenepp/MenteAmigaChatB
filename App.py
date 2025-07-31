@@ -7,7 +7,7 @@ load_dotenv()
 
 app = Flask(__name__) 
 
-Conectar com o banco de dados 
+# Conectar com o banco de dados 
 
 DB_PATH = 'mensagens.db' 
 
