@@ -1,13 +1,13 @@
 import sqlite3
 
-# Nome do arquivo do banco
+# Caminho do banco de dados
 DB_PATH = 'mensagens.db'
 
-# Conexão com o banco
+# Conecta e cria a tabela
 conn = sqlite3.connect(DB_PATH)
 cursor = conn.cursor()
 
-# Criar a tabela
+# Criação da tabela
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS mensagens (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,21 +16,25 @@ CREATE TABLE IF NOT EXISTS mensagens (
 )
 ''')
 
-# Dados de exemplo (você pode adicionar mais)
+# Inserção de mensagens por tipo
 mensagens = [
-    ('apoio', 'Sinto muito que esteja passando por isso. Estou aqui com você. 💙'),
-    ('apoio', 'Você não está sozinha(o), tá bom? Pode conversar comigo.'),
-    ('respiracao', 'Vamos respirar juntos: inspire por 4 segundos, segure por 4, expire por 4. Repita.'),
-    ('respiracao', 'Feche os olhos por um momento e respire fundo. Você está seguro(a).'),
-    ('humor', 'Qual o cúmulo do absurdo? Jogar xadrez com o espelho e perder! 😄'),
-    ('humor', 'Sabe por que o lápis foi demitido? Porque ele estava sem ponta! ✏️😂'),
-    ('emergencia', 'Se estiver em perigo ou precisar de ajuda urgente, por favor procure alguém de confiança ou disque 188 (CVV).'),
-    ('abertura', 'Olá! Como posso te ajudar hoje? Estou aqui para você. 💬'),
+    ('apoio', 'Sinto muito por você estar assim. Você não está sozinho. ❤️'),
+    ('apoio', 'Estou aqui com você. Respire fundo, vai passar.'),
+    ('respiracao', 'Vamos respirar juntos? Inspire... Segure... Expire lentamente.'),
+    ('respiracao', 'Feche os olhos por 10 segundos e respire fundo. Tudo bem.'),
+    ('humor', 'Sabe qual o cúmulo da paciência? Esperar um cego achar uma agulha no palheiro 😂'),
+    ('humor', 'Por que o livro foi ao médico? Porque ele tinha muitas páginas em branco! 🤓'),
+    ('emergencia', 'Se você estiver em perigo imediato, ligue para 188 (CVV) ou procure ajuda médica.'),
+    ('emergencia', 'Por favor, busque ajuda imediatamente. Ligue para 188 ou fale com alguém de confiança.'),
+    ('abertura', 'Olá! Como você está se sentindo hoje?'),
+    ('abertura', 'Oi! Estou aqui para conversar com você. Como posso ajudar?')
 ]
 
-# Inserir as mensagens
-cursor.executemany("INSERT INTO mensagens (tipo, conteudo) VALUES (?, ?)", mensagens)
+# Inserção no banco
+cursor.executemany('INSERT INTO mensagens (tipo, conteudo) VALUES (?, ?)', mensagens)
 
-# Salvar e fechar
+# Salva e fecha conexão
 conn.commit()
 conn.close()
+
+print("Banco de dados criado e populado com sucesso!")
